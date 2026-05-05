@@ -14,3 +14,4 @@ NUMERIC_COLUMNS = ["SquareFeet", "Bedrooms", "Bathrooms", "YearBuilt"]
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
 CV_SPLITS = 5
+CV_EXCLUDED_MODELS = ["MLP Regressor"]

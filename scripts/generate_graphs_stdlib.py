@@ -1,7 +1,11 @@
 import csv
 import math
+import sys
 from pathlib import Path
 from statistics import mean
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from config import DATA_PATH, PLOTS_DIR, TARGET_COLUMN
 

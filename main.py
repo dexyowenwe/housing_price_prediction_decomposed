@@ -2,6 +2,7 @@ import argparse
 
 from config import (
     CATEGORICAL_COLUMNS,
+    CV_EXCLUDED_MODELS,
     CV_SPLITS,
     DATA_PATH,
     PLOTS_DIR,
@@ -27,7 +28,7 @@ from utils.visualization import (
 )
 
 
-def run_pipeline(include_cv: bool = True):
+def run_pipeline(include_cv: bool = True, include_mlp_cv: bool = False):
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -101,7 +102,14 @@ def run_pipeline(include_cv: bool = True):
 
     cv_results = None
     if include_cv:
-        cv_results = cross_validate_model_set(models, X, y, CV_SPLITS, RANDOM_STATE)
+        cv_models = models
+        if not include_mlp_cv:
+            cv_models = {
+                name: model
+                for name, model in models.items()
+                if name not in CV_EXCLUDED_MODELS
+            }
+        cv_results = cross_validate_model_set(cv_models, X, y, CV_SPLITS, RANDOM_STATE)
         cv_results.to_csv(REPORTS_DIR / "cross_validation_results.csv", index=False)
 
     analysis_path = build_housing_analysis_markdown(
@@ -130,5 +138,10 @@ if __name__ == "__main__":
         action="store_true",
         help="Skip cross-validation for a faster run.",
     )
+    parser.add_argument(
+        "--include-mlp-cv",
+        action="store_true",
+        help="Include the MLP Regressor in cross-validation.",
+    )
     args = parser.parse_args()
-    run_pipeline(include_cv=not args.no_cv)
+    run_pipeline(include_cv=not args.no_cv, include_mlp_cv=args.include_mlp_cv)

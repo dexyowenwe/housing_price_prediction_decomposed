@@ -69,10 +69,19 @@ This report is generated from `data/raw/housing_price_dataset.csv` by the projec
 | Model | MAE | R2 |
 | --- | --- | --- |
 | Linear Regression | 39490.6903 | 0.5780 |
-| Gradient Boosting | 39496.3285 | 0.5775 |
+| Gradient Boosting | 39497.6751 | 0.5778 |
 | Decision Tree | 39668.8460 | 0.5740 |
-| MLP Regressor | 39672.0490 | 0.5751 |
-| Random Forest | 39690.4369 | 0.5732 |
+| Random Forest | 39699.3702 | 0.5730 |
+| MLP Regressor | 41270.2952 | 0.5394 |
+
+## Cross-Validation Results
+
+| Model | CV MAE Mean | CV MAE Std | CV R2 Mean | CV R2 Std |
+| --- | --- | --- | --- | --- |
+| Linear Regression | 39858.8688 | 368.1108 | 0.5697 | 0.0076 |
+| Gradient Boosting | 39893.0987 | 368.7267 | 0.5690 | 0.0077 |
+| Decision Tree | 40068.1005 | 318.0984 | 0.5649 | 0.0069 |
+| Random Forest | 40095.0836 | 339.0003 | 0.5642 | 0.0076 |
 
 ## Interpretation
 

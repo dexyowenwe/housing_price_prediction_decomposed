@@ -3,7 +3,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
 
-def build_ml_models(random_state: int = 42) -> dict:
+def build_ml_models(random_state: int = 42, n_jobs: int = 1) -> dict:
     """Create the machine learning regression models from the notebook."""
     return {
         "Linear Regression": LinearRegression(),
@@ -14,15 +14,15 @@ def build_ml_models(random_state: int = 42) -> dict:
             random_state=random_state,
         ),
         "Random Forest": RandomForestRegressor(
-            n_estimators=200,
+            n_estimators=100,
             max_depth=10,
             min_samples_split=10,
             min_samples_leaf=5,
             random_state=random_state,
-            n_jobs=-1,
+            n_jobs=n_jobs,
         ),
         "Gradient Boosting": GradientBoostingRegressor(
-            n_estimators=300,
+            n_estimators=150,
             learning_rate=0.05,
             max_depth=3,
             subsample=0.8,

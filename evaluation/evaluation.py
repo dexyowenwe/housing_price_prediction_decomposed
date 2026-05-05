@@ -28,6 +28,7 @@ def cross_validate_model_set(
     y,
     cv_splits: int = 5,
     random_state: int = 42,
+    n_jobs: int = 1,
 ) -> pd.DataFrame:
     """Run K-fold cross-validation and return MAE/R2 comparison."""
     cv = KFold(n_splits=cv_splits, shuffle=True, random_state=random_state)
@@ -40,7 +41,7 @@ def cross_validate_model_set(
             y,
             cv=cv,
             scoring={"mae": "neg_mean_absolute_error", "r2": "r2"},
-            n_jobs=-1,
+            n_jobs=n_jobs,
         )
         rows.append(
             {
