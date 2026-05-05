@@ -74,15 +74,6 @@ This report is generated from `data/raw/housing_price_dataset.csv` by the projec
 | Random Forest | 39699.3702 | 0.5730 |
 | MLP Regressor | 41270.2952 | 0.5394 |
 
-## Cross-Validation Results
-
-| Model | CV MAE Mean | CV MAE Std | CV R2 Mean | CV R2 Std |
-| --- | --- | --- | --- | --- |
-| Linear Regression | 39858.8688 | 368.1108 | 0.5697 | 0.0076 |
-| Gradient Boosting | 39893.0987 | 368.7267 | 0.5690 | 0.0077 |
-| Decision Tree | 40068.1005 | 318.0984 | 0.5649 | 0.0069 |
-| Random Forest | 40095.0836 | 339.0003 | 0.5642 | 0.0076 |
-
 ## Interpretation
 
 The graphs show how price is distributed, how average price differs by neighborhood, and how square footage relates to price. The model comparison plots make it easier to compare error and explained variance across models. Lower MAE is better because it means smaller average pricing error, while higher R2 is better because it means the model explains more variation in prices.
