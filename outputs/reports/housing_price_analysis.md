@@ -71,7 +71,7 @@ This report is generated from `data/raw/housing_price_dataset.csv` by the projec
 | Linear Regression | 39490.6903 | 0.5780 |
 | Gradient Boosting | 39497.6751 | 0.5778 |
 | Decision Tree | 39668.8460 | 0.5740 |
-| Random Forest | 39699.3702 | 0.5730 |
+| Random Forest | 39699.6028 | 0.5730 |
 | MLP Regressor | 41270.2952 | 0.5394 |
 
 ## Interpretation

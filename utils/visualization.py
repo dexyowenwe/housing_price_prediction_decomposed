@@ -10,7 +10,26 @@ def _prepare_output_path(output_path: str | Path) -> Path:
     return output_path
 
 
-def save_correlation_plot(df: pd.DataFrame, target_column: str, output_path: str | Path):
+def _save_or_preview(output_path: Path, preview: bool = False) -> None:
+    plt.tight_layout()
+    plt.savefig(output_path)
+    if not preview:
+        plt.close()
+
+
+def show_plot_previews() -> None:
+    """Display all generated matplotlib figures and wait until the user closes them."""
+    if plt.get_fignums():
+        plt.show()
+        plt.close("all")
+
+
+def save_correlation_plot(
+    df: pd.DataFrame,
+    target_column: str,
+    output_path: str | Path,
+    preview: bool = False,
+):
     """Save a bar chart of numeric correlation against the target column."""
     output_path = _prepare_output_path(output_path)
     correlations = df.corr(numeric_only=True)[target_column].sort_values(ascending=False)
@@ -23,15 +42,14 @@ def save_correlation_plot(df: pd.DataFrame, target_column: str, output_path: str
     ax.axhline(0, color="#555555", linewidth=0.8)
     ax.grid(axis="y", alpha=0.25)
     plt.xticks(rotation=35, ha="right")
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_price_distribution_plot(
     df: pd.DataFrame,
     target_column: str,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save a histogram showing the target price distribution."""
     output_path = _prepare_output_path(output_path)
@@ -42,9 +60,7 @@ def save_price_distribution_plot(
     ax.set_ylabel("Number of Houses")
     ax.set_title("Distribution of House Prices")
     ax.grid(axis="y", alpha=0.25)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_price_by_neighborhood_plot(
@@ -52,6 +68,7 @@ def save_price_by_neighborhood_plot(
     target_column: str,
     neighborhood_column: str,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save a bar chart of average price by neighborhood."""
     output_path = _prepare_output_path(output_path)
@@ -66,9 +83,7 @@ def save_price_by_neighborhood_plot(
     ax.set_title("Average House Price by Neighborhood")
     ax.grid(axis="y", alpha=0.25)
     plt.xticks(rotation=0)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_squarefeet_price_scatter_plot(
@@ -77,6 +92,7 @@ def save_squarefeet_price_scatter_plot(
     squarefeet_column: str,
     neighborhood_column: str,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save a scatter plot of house size against price by neighborhood."""
     output_path = _prepare_output_path(output_path)
@@ -96,14 +112,13 @@ def save_squarefeet_price_scatter_plot(
     ax.set_title("House Price vs Square Feet by Neighborhood")
     ax.legend(title="Neighborhood")
     ax.grid(alpha=0.25)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_model_mae_comparison_plot(
     results: pd.DataFrame,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save a model comparison bar chart using holdout MAE."""
     output_path = _prepare_output_path(output_path)
@@ -116,14 +131,13 @@ def save_model_mae_comparison_plot(
     plt.title("Holdout Model Comparison by MAE")
     plt.grid(axis="x", alpha=0.25)
     plt.bar_label(ax, fmt="%.0f", padding=4)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_model_r2_comparison_plot(
     results: pd.DataFrame,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save a model comparison bar chart using holdout R2."""
     output_path = _prepare_output_path(output_path)
@@ -136,9 +150,7 @@ def save_model_r2_comparison_plot(
     plt.title("Holdout Model Comparison by R2")
     plt.grid(axis="x", alpha=0.25)
     plt.bar_label(ax, fmt="%.3f", padding=4)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)
 
 
 def save_actual_vs_predicted_plot(
@@ -146,6 +158,7 @@ def save_actual_vs_predicted_plot(
     y_pred,
     title: str,
     output_path: str | Path,
+    preview: bool = False,
 ):
     """Save an actual-versus-predicted scatter plot."""
     output_path = _prepare_output_path(output_path)
@@ -164,6 +177,4 @@ def save_actual_vs_predicted_plot(
     plt.title(title)
     plt.legend()
     plt.grid(alpha=0.25)
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close()
+    _save_or_preview(output_path, preview)

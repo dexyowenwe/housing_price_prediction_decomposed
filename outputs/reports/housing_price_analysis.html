@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Housing Price Prediction Preview</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f5;
+      --panel: #ffffff;
+      --text: #1d2526;
+      --muted: #5f6c6d;
+      --line: #dde3df;
+      --accent: #2f6f9f;
+      --accent-2: #3f8f6b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 32px 24px 24px;
+      background: #223235;
+      color: #ffffff;
+    }
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 24px auto 48px;
+    }
+    h1, h2, h3 { margin: 0; line-height: 1.2; }
+    h1 { font-size: clamp(28px, 4vw, 42px); }
+    h2 { font-size: 24px; margin-bottom: 16px; }
+    h3 { font-size: 18px; margin-bottom: 12px; }
+    p { margin: 10px 0 0; color: var(--muted); }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .metric, .section, .graph-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      margin-top: 4px;
+    }
+    .metric span { color: var(--muted); font-size: 14px; }
+    .section { margin-bottom: 24px; }
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .finding {
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      background: #f2f7f8;
+      border-radius: 6px;
+    }
+    .graphs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+    }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      white-space: nowrap;
+    }
+    th { background: #edf3f0; }
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      padding-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Housing Price Prediction Preview</h1>
+    <p>Generated from data/raw/housing_price_dataset.csv by the Python pipeline.</p>
+  </header>
+  <main>
+    <section class="summary" aria-label="Dataset summary">
+      <div class="metric"><span>Raw Rows</span><strong>50,000</strong></div>
+      <div class="metric"><span>Clean Rows</span><strong>49,978</strong></div>
+      <div class="metric"><span>Median Price</span><strong>$225,100</strong></div>
+      <div class="metric"><span>Average Price</span><strong>$224,932</strong></div>
+    </section>
+
+    <section class="section">
+      <h2>Key Findings</h2>
+      <div class="findings">
+        <div class="finding">Best holdout model: <strong>Linear Regression</strong><br>MAE $39,491, R2 0.578</div>
+        <div class="finding">Strongest numeric relationship: <strong>SquareFeet</strong><br>Correlation 0.751</div>
+        <div class="finding">Highest average price: <strong>Urban</strong><br>$227,298</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Generated Graphs</h2>
+      <div class="graphs">
+        <section class="graph-card"><h3>Feature Correlation</h3><img src="../plots/feature_correlation.png" alt="Feature Correlation"></section><section class="graph-card"><h3>Price Distribution</h3><img src="../plots/price_distribution.png" alt="Price Distribution"></section><section class="graph-card"><h3>Average Price by Neighborhood</h3><img src="../plots/average_price_by_neighborhood.png" alt="Average Price by Neighborhood"></section><section class="graph-card"><h3>Price vs Square Feet by Neighborhood</h3><img src="../plots/price_vs_squarefeet_by_neighborhood.png" alt="Price vs Square Feet by Neighborhood"></section><section class="graph-card"><h3>Holdout Model MAE Comparison</h3><img src="../plots/holdout_model_mae_comparison.png" alt="Holdout Model MAE Comparison"></section><section class="graph-card"><h3>Holdout Model R2 Comparison</h3><img src="../plots/holdout_model_r2_comparison.png" alt="Holdout Model R2 Comparison"></section><section class="graph-card"><h3>Actual vs Predicted (Linear Regression)</h3><img src="../plots/actual_vs_predicted_best_model.png" alt="Actual vs Predicted (Linear Regression)"></section>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Feature Correlation</h2>
+      <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Correlation with Price</th></tr></thead><tbody><tr><td>SquareFeet</td><td>0.751</td></tr><tr><td>Bedrooms</td><td>0.073</td></tr><tr><td>Bathrooms</td><td>0.028</td></tr><tr><td>YearBuilt</td><td>-0.002</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section">
+      <h2>Average Price by Neighborhood</h2>
+      <div class="table-wrap"><table><thead><tr><th>Neighborhood</th><th>count</th><th>mean</th><th>median</th><th>min</th><th>max</th></tr></thead><tbody><tr><td>Urban</td><td>16594</td><td>227297.86</td><td>227947.08</td><td>2697.85</td><td>476671.73</td></tr><tr><td>Rural</td><td>16668</td><td>224209.37</td><td>223775.12</td><td>3000.86</td><td>492195.26</td></tr><tr><td>Suburb</td><td>16716</td><td>223302.97</td><td>223731.77</td><td>154.78</td><td>482577.16</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section">
+      <h2>Holdout Model Results</h2>
+      <div class="table-wrap"><table><thead><tr><th>Model</th><th>MAE</th><th>R2</th></tr></thead><tbody><tr><td>Linear Regression</td><td>39490.6903</td><td>0.5780</td></tr><tr><td>Gradient Boosting</td><td>39497.6751</td><td>0.5778</td></tr><tr><td>Decision Tree</td><td>39668.8460</td><td>0.5740</td></tr><tr><td>Random Forest</td><td>39699.6028</td><td>0.5730</td></tr><tr><td>MLP Regressor</td><td>41270.2952</td><td>0.5394</td></tr></tbody></table></div>
+    </section>
+
+    
+  </main>
+  <footer>Run python main.py again to refresh this preview.</footer>
+</body>
+</html>

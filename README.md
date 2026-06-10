@@ -82,24 +82,36 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run the full pipeline. By default, cross-validation skips the MLP Regressor because
-training a neural network across every fold is much slower than the other models:
+Run the normal pipeline. It prints a dataset preview, saves the generated reports and
+plots, refreshes `index.html` for the Preview button, and opens the graph preview
+windows:
 
 ```bash
 python main.py
 ```
 
-Run a faster version without cross-validation:
+After running, press the Preview button beside Run and open `index.html` to view the
+browser preview with the model results, tables, and graphs.
+
+Run without opening Matplotlib graph preview windows:
 
 ```bash
-python main.py --no-cv
+python main.py --no-preview
+```
+
+Run K-fold cross-validation after the normal holdout evaluation. By default,
+cross-validation skips the MLP Regressor because training a neural network across
+every fold is much slower than the other models:
+
+```bash
+python main.py --with-cv
 ```
 
 Include the MLP Regressor in cross-validation when you need the extra comparison and
 can accept the longer runtime:
 
 ```bash
-python main.py --include-mlp-cv
+python main.py --with-cv --include-mlp-cv
 ```
 
 Generate SVG graphs using only the Python standard library:
@@ -116,14 +128,21 @@ pytest
 
 ## Outputs
 
-The pipeline saves these files after execution:
+The normal pipeline saves these files after execution:
 
 ```text
 outputs/reports/holdout_model_results.csv
-outputs/reports/cross_validation_results.csv
 outputs/reports/housing_price_analysis.md
+outputs/reports/housing_price_analysis.html
 outputs/plots/feature_correlation.png
 outputs/plots/actual_vs_predicted_best_model.png
+index.html
+```
+
+When `--with-cv` is used, it also saves:
+
+```text
+outputs/reports/cross_validation_results.csv
 ```
 
 ## Source Code Selection
